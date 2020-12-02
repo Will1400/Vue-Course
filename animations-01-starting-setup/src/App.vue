@@ -1,10 +1,24 @@
 <template>
-	<div class="container">
+	<router-view v-slot="slotProps">
+		<transition name="route" mode="out-in">
+			<component :is="slotProps.Component"></component>
+		</transition>
+	</router-view>
+
+	<!-- <div class="container">
 		<div class="block" :class="{ animate: animatedBlock }"></div>
 		<button @click="animateBlock">Animate</button>
 	</div>
 	<div class="container">
-		<transition name="para">
+		<transition
+			name="para"
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@before-leave="beforeLeave"
+			@leave="leave"
+			@enter-cancelled="enterCancelled"
+			@leave-cancelled="leaveCancelled"
+		>
 			<p v-if="paragraphIsVisible">
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 				Exercitationem, qui!
@@ -25,19 +39,62 @@
 	<div class="container">
 		<button @click="showDialog">Show Dialog</button>
 	</div>
-</template>  
+	<div class="container">
+		<users-list></users-list>
+	</div> -->
+</template>
 
 <script>
+// import UsersList from './components/UsersList.vue';
 export default {
+	// components: { UsersList },
 	data() {
 		return {
 			dialogIsVisible: false,
 			animatedBlock: false,
 			paragraphIsVisible: false,
 			usersAreVisible: false,
+			enterInterval: null,
+			leaveInterval: null,
 		};
 	},
 	methods: {
+		beforeEnter(el) {
+			el.style.opacity = 0;
+		},
+		enter(el, done) {
+			let round = 1;
+			this.enterInterval = setInterval(() => {
+				el.style.opacity = round * 0.1;
+				round++;
+				if (round > 10) {
+					clearInterval(this.enterInterval);
+					done();
+				}
+			}, 20);
+		},
+		enterCancelled() {
+			clearInterval(this.enterInterval);
+		},
+		leaveCancelled() {
+			clearInterval(this.leaveInterval);
+		},
+
+		beforeLeave(el) {
+			el.opacity = 1;
+		},
+		leave(el, done) {
+			let round = 10;
+			this.leaveInterval = setInterval(() => {
+				el.style.opacity = round * 0.1;
+				round--;
+
+				if (round < 1) {
+					clearInterval(this.leaveInterval);
+					done();
+				}
+			}, 20);
+		},
 		showDialog() {
 			this.dialogIsVisible = true;
 		},
@@ -107,30 +164,6 @@ button:active {
 	transform: translateX(-150px);
 }
 
-.para-enter-from {
-	opacity: 0;
-	transform: translateY(-30px);
-}
-.para-enter-active {
-	transition: 0.3s ease-in;
-}
-.para-enter-to {
-	opacity: 1;
-	transform: translateY(0);
-}
-
-.para-leave-from {
-	opacity: 1;
-	transform: translateY(0);
-}
-.para-leave-active {
-	transition: 0.3s ease-out;
-}
-.para-leave-to {
-	opacity: 0;
-	transform: translateY(-30px);
-}
-
 .fade-button-enter-from,
 .fade-button-leave-to {
 	opacity: 0;
@@ -144,6 +177,14 @@ button:active {
 .fade-button-enter-to,
 .fade-button-leave-from {
 	opacity: 1;
+}
+
+.route-enter-active {
+	animation: slide-scale 0.4s ease-out;
+}
+
+.route-leave-active {
+	animation: slide-scale 0.4s ease-in;
 }
 
 @keyframes slide-scale {
