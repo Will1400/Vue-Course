@@ -11,14 +11,17 @@ export default {
       state.cart.items[payload.value].qty++;
     },
     removeProductFromCart(state, payload) {
-      const index = state.cart.items.findIndex(x => x.id === payload.id);
-      state.cart.items.splice(index, 1);
+      const index = state.cart.items.findIndex(x => x.productId === payload.id);
+
+      if (index != -1) {
+        state.cart.items.splice(index, 1);
+      }
     },
     setCartTotalPrice(state, payload) {
       state.cart.total = payload.value;
     },
     setCartQuantity(state, payload) {
-      state.cart.quantity = payload.value;
+      state.cart.qty = payload.value;
     }
   },
   actions: {
@@ -50,14 +53,21 @@ export default {
       context.dispatch('updateCartInfo');
     },
     updateCartInfo(context) {
-      const totalPrice = context.getters.cartItems
-        .map(x => x.price * x.qty)
-        .sum();
-
-      context.commit('setCartTotalPrice', { value: totalPrice });
-      context.commit('setCartQuantity', {
-        value: context.getters.cartItems.map(x => x.qty).sum()
+      const prices = context.getters.cartItems.map(x => x.price * x.qty);
+      let totalPrice = 0;
+      prices.forEach(item => {
+        totalPrice += item;
       });
+
+      let quantity = 0;
+      context.getters.cartItems
+        .map(x => x.qty)
+        .forEach(x => {
+          quantity += x;
+        });
+
+      context.commit('setCartTotalPrice', { value: totalPrice.toFixed(2) });
+      context.commit('setCartQuantity', { value: quantity });
     }
   },
   getters: {
