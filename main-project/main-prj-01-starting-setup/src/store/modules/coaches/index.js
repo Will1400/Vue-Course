@@ -24,12 +24,34 @@ export default {
       ]
     };
   },
+  mutations: {
+    registerCoach(state, payload) {
+      state.coaches.push(payload);
+    }
+  },
+  actions: {
+    registerCoach(context, data) {
+      const coach = {
+        id: context.rootGetters.userId,
+        firstName: data.first,
+        lastName: data.last,
+        description: data.desc,
+        hourlyRate: data.rate,
+        areas: data.areas
+      };
+
+      context.commit('registerCoach', coach);
+    }
+  },
   getters: {
     coaches(state) {
       return state.coaches;
     },
     hasCoaches(_, getters) {
       return getters.coaches.length > 0;
+    },
+    isCoach(_, getters, _2, rootGetters) {
+      return getters.coaches.some(x => x.id === rootGetters.userId);
     }
   }
 };

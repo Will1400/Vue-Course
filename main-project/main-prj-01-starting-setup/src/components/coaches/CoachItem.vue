@@ -11,9 +11,9 @@
 			></base-badge>
 		</div>
 		<div class="actions">
-			<base-button :to="coachDetailsLink + '/contact'" mode="outline"
-				>Contact</base-button
-			>
+			<base-button link :to="coachDetailsLink + '/contact'" mode="outline">
+				Contact
+			</base-button>
 			<base-button link :to="coachDetailsLink">View Details</base-button>
 		</div>
 	</li>
