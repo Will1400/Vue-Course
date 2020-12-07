@@ -8,7 +8,6 @@ export default {
   mutations: {
     addRequest(state, payload) {
       state.requests.push(payload);
-      console.log(payload);
     }
   },
   actions: {
@@ -24,8 +23,8 @@ export default {
     }
   },
   getters: {
-    requests(state) {
-      return state.requests;
+    requests(state, _, _2, rootGetters) {
+      return state.requests.filter(x => x.coachId === rootGetters.userId);
     },
     hasRequests(_, getters) {
       return getters.requests && getters.requests.length > 0;

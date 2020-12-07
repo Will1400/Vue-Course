@@ -5,7 +5,7 @@ import CoachesList from './pages/coaches/CoachesList.vue';
 import CoachRegistration from './pages/coaches/CoachRegistration.vue';
 
 import ContactCoach from './pages/requests/ContactCoach.vue';
-import RequestRecieved from './pages/requests/RequestRecieved.vue';
+import RequestRecieved from './pages/requests/RequestReceived.vue';
 
 const router = createRouter({
   history: createWebHistory(),
