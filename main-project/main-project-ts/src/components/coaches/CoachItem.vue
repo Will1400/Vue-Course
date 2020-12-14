@@ -19,16 +19,44 @@
   </li>
 </template>
 
-<script>
+<script lang="ts">
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 export default {
-  props: ["id", "firstName", "lastName", "hourlyRate", "areas"],
-  computed: {
-    fullName() {
-      return this.firstName + " " + this.lastName;
+  props: {
+    id: {
+      type: String,
+      required: true
     },
-    coachDetailsLink() {
-      return this.$route.path + "/" + this.id;
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
+    hourlyRate: {
+      type: Number,
+      required: true
+    },
+    areas: {
+      type: [],
+      required: true
     }
+  },
+  setup(props) {
+    const route = useRoute();
+
+    const fullName = computed(() => {
+      return props.firstName + " " + props.lastName;
+    });
+
+    const coachDetailsLink = computed(() => {
+      return route.path + "/" + props.id;
+    });
+
+    return { fullName, coachDetailsLink };
   }
 };
 </script>
