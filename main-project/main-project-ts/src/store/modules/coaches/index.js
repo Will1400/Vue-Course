@@ -4,21 +4,21 @@ export default {
     return {
       coaches: [
         {
-          id: 'c1',
-          firstName: 'Maximilian',
-          lastName: 'Schwarzmüller',
-          areas: ['frontend', 'backend', 'career'],
+          id: "c1",
+          firstName: "Maximilian",
+          lastName: "Schwarzmüller",
+          areas: ["frontend", "backend", "career"],
           description:
             "I'm Maximilian and I've worked as a freelance web developer for years. Let me help you become a developer as well!",
           hourlyRate: 30
         },
         {
-          id: 'c2',
-          firstName: 'Julie',
-          lastName: 'Jones',
-          areas: ['frontend', 'career'],
+          id: "c2",
+          firstName: "Julie",
+          lastName: "Jones",
+          areas: ["frontend", "career"],
           description:
-            'I am Julie and as a senior developer in a big tech company, I can help you get your first job or progress in your current role.',
+            "I am Julie and as a senior developer in a big tech company, I can help you get your first job or progress in your current role.",
           hourlyRate: 30
         }
       ]
@@ -46,16 +46,16 @@ export default {
       const result = await fetch(
         `https://vue-main-project-86078-default-rtdb.firebaseio.com/coaches/coaches.json`,
         {
-          method: 'PUT',
+          method: "PUT",
           body: JSON.stringify({ coach })
         }
       );
 
       if (!result.ok) {
-        console.log('Post failed');
+        console.log("Post failed");
       }
 
-      context.commit('registerCoach', coach);
+      context.commit("registerCoach", coach);
     },
     async getCoaches(context) {
       const result = await fetch(
@@ -64,10 +64,10 @@ export default {
 
       const data = await result.json();
       if (!result.ok) {
-        throw new Error(data.message || 'Failed to fetch coaches');
+        throw new Error(data.message || "Failed to fetch coaches");
       }
 
-      let coaches = [];
+      const coaches = [];
 
       for (const key in data) {
         coaches.push({
@@ -79,7 +79,7 @@ export default {
           areas: data[key].areas
         });
       }
-      context.commit('setCoaches', coaches);
+      context.commit("setCoaches", coaches);
     }
   },
   getters: {
