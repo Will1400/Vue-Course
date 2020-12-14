@@ -30,7 +30,7 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-		}
+		};
 	},
 	computed: {
 		receivedRequests() {
@@ -41,19 +41,19 @@ export default {
 		},
 	},
 	methods: {
-		async loadRequests(){
+		async loadRequests() {
 			this.isLoading = true;
 			try {
-				await this.$store.dispatch("requests/getRequests");
+				await this.$store.dispatch('requests/getRequests');
 			} catch (error) {
 				this.error = error.message;
 			}
 			this.isLoading = false;
 		},
 	},
-	created(){
-		this.loadRequests()
-	}
+	created() {
+		this.loadRequests();
+	},
 };
 </script>
 
