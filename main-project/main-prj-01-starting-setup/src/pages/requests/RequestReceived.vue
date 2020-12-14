@@ -4,7 +4,10 @@
 			<header>
 				<h2>Requests Received</h2>
 			</header>
-			<ul v-if="hasRequests">
+			<div v-if="isLoading">
+				<base-spinner></base-spinner>
+			</div>
+			<ul v-else-if="hasRequests">
 				<request-item
 					v-for="req in receivedRequests"
 					:key="req.id"
@@ -24,6 +27,11 @@ export default {
 	components: {
 		RequestItem,
 	},
+	data() {
+		return {
+			isLoading: false,
+		}
+	},
 	computed: {
 		receivedRequests() {
 			return this.$store.getters['requests/requests'];
@@ -32,6 +40,20 @@ export default {
 			return this.$store.getters['requests/hasRequests'];
 		},
 	},
+	methods: {
+		async loadRequests(){
+			this.isLoading = true;
+			try {
+				await this.$store.dispatch("requests/getRequests");
+			} catch (error) {
+				this.error = error.message;
+			}
+			this.isLoading = false;
+		},
+	},
+	created(){
+		this.loadRequests()
+	}
 };
 </script>
 

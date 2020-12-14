@@ -27,10 +27,13 @@ export default {
   mutations: {
     registerCoach(state, payload) {
       state.coaches.push(payload);
+    },
+    setCoaches(state, payload) {
+      state.coaches = payload;
     }
   },
   actions: {
-    registerCoach(context, data) {
+    async registerCoach(context, data) {
       const coach = {
         id: context.rootGetters.userId,
         firstName: data.first,
@@ -40,7 +43,43 @@ export default {
         areas: data.areas
       };
 
+      const result = await fetch(
+        `https://vue-main-project-86078-default-rtdb.firebaseio.com/coaches/${context.rootGetters.userId}.json`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({ coach })
+        }
+      );
+
+      if (!result.ok) {
+        console.log('Post failed');
+      }
+
       context.commit('registerCoach', coach);
+    },
+    async getCoaches(context) {
+      const result = await fetch(
+        `https://vue-main-project-86078-default-rtdb.firebaseio.com/coaches/${context.rootGetters.userId}.json`
+      );
+
+      const data = await result.json();
+      if (!result.ok) {
+        throw new Error(data.message || 'Failed to fetch coaches');
+      }
+
+      let coaches = [];
+
+      for (const key in data) {
+        coaches.push({
+          id: data[key].id,
+          firstName: data[key].firstName,
+          lastName: data[key].lastName,
+          description: data[key].description,
+          hourlyRate: data[key].hourlyRate,
+          areas: data[key].areas
+        });
+      }
+      context.commit('setCoaches', coaches);
     }
   },
   getters: {
