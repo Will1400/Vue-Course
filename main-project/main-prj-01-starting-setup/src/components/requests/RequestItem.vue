@@ -1,42 +1,45 @@
 <template>
-	<li>
-		<div>
-			<a :href="emailLink">{{ email }}</a>
-		</div>
-		<p>{{ message }}</p>
-	</li>
+  <li>
+    <div>
+      <a :href="emailLink">{{ email }}</a>
+    </div>
+    <p>{{ message }}</p>
+  </li>
 </template>
 
-<script>
-export default {
-	props: ['email', 'message'],
-	computed: {
-		emailLink() {
-			return 'mailto:' + this.email;
-		},
-	},
-};
+<script lang="ts">
+import { computed, defineComponent } from 'vue';
+export default defineComponent({
+  props: ['email', 'message'],
+  setup(props) {
+    const emailLink = computed(() => {
+      return 'mailto:' + props.email;
+    });
+
+    return { emailLink };
+  }
+});
 </script>
 
 <style scoped>
 li {
-	margin: 1rem 0;
-	border: 1px solid #ccc;
-	padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  padding: 1rem;
 }
 
 a {
-	color: #3d008d;
-	text-decoration: none;
-	font-weight: bold;
+  color: #3d008d;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 a:hover,
 a:active {
-	color: #8d007a;
+  color: #8d007a;
 }
 
 p {
-	margin: 0.5rem 0 0 0;
+  margin: 0.5rem 0 0 0;
 }
 </style>
