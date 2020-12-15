@@ -1,11 +1,11 @@
-import { State, Coach } from "./state";
+import { CoachesState, Coach } from "./state";
 
 export enum MutationType {
   SetCoaches = "SET_COACHES"
 }
 
 export type Mutations = {
-  [MutationType.SetCoaches](state: State, coaches: Coach[]): void;
+  [MutationType.SetCoaches](state: CoachesState, coaches: Coach[]): void;
 };
 
 export const mutations: Mutations = {

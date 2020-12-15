@@ -7,10 +7,10 @@ export type Coach = {
   hourlyRate: number;
 };
 
-export type State = {
+export type CoachesState = {
   coaches: Coach[];
 };
 
-export const state: State = {
+export const state: CoachesState = {
   coaches: []
 };
