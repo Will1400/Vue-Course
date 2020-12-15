@@ -2,15 +2,16 @@
   <span class="badge" :class="type">{{ text }}</span>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { computed, defineComponent } from "vue";
+export default defineComponent({
   props: ["type", "title"],
-  computed: {
-    text() {
-      return this.title.toUpperCase();
-    }
+  setup(props) {
+    const text = computed(() => props.title.toUpperCase());
+
+    return { text };
   }
-};
+});
 </script>
 
 <style scoped>

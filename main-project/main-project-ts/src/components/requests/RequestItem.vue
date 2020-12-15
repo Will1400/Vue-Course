@@ -7,15 +7,18 @@
   </li>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { computed, defineComponent } from "vue";
+export default defineComponent({
   props: ["email", "message"],
-  computed: {
-    emailLink() {
-      return "mailto:" + this.email;
-    }
+  setup(props) {
+    const emailLink = computed(() => {
+      return "mailto:" + props.email;
+    });
+
+    return { emailLink };
   }
-};
+});
 </script>
 
 <style scoped>

@@ -16,32 +16,37 @@
   </base-card>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+interface Filters {
+  frontend: boolean;
+  backend: boolean;
+  career: boolean;
+}
+
+import { defineComponent, reactive } from "vue";
+const Component = defineComponent({
   emits: ["change-filter"],
-  data() {
-    return {
-      filters: {
-        frontend: true,
-        backend: true,
-        career: true
-      }
-    };
-  },
-  methods: {
-    setFilter(event) {
-      const inputId = event.target.id;
-      const isActive = event.target.checked;
+  setup(_, context) {
+    const filters = reactive<Filters>({
+      frontend: true,
+      backend: true,
+      career: true
+    });
 
-      this.filters = {
-        ...this.filters,
-        [inputId]: isActive
-      };
+    function setFilter(event: any) {
+      console.log(event);
 
-      this.$emit("change-filter", this.filters);
+      const inputId: string = event.target.id;
+      const isActive: boolean = event.target.checked;
+      filters[inputId as keyof Filters] = isActive;
+
+      context.emit("change-filter", filters);
     }
+
+    return { filters, setFilter };
   }
-};
+});
+export default Component;
 </script>
 
 <style scoped>

@@ -20,45 +20,23 @@
 </template>
 
 <script lang="ts">
-import { computed } from "vue";
+import { computed, defineComponent } from "vue";
 import { useRoute } from "vue-router";
-export default {
-  props: {
-    id: {
-      type: String,
-      required: true
-    },
-    firstName: {
-      type: String,
-      required: true
-    },
-    lastName: {
-      type: String,
-      required: true
-    },
-    hourlyRate: {
-      type: Number,
-      required: true
-    },
-    areas: {
-      type: [],
-      required: true
-    }
-  },
+export default defineComponent({
+  props: ["id", "firstName", "lastName", "hourlyRate", "areas"],
   setup(props) {
-    const route = useRoute();
-
     const fullName = computed(() => {
       return props.firstName + " " + props.lastName;
     });
 
+    const route = useRoute();
     const coachDetailsLink = computed(() => {
       return route.path + "/" + props.id;
     });
 
     return { fullName, coachDetailsLink };
   }
-};
+});
 </script>
 
 <style scoped>
