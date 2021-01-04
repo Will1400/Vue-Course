@@ -1,0 +1,62 @@
+{
+  "coach-filter": {
+    "attributes": [],
+    "description": ""
+  },
+  "coach-form": {
+    "attributes": [],
+    "description": ""
+  },
+  "coach-item": {
+    "attributes": [
+      "id",
+      "firstName",
+      "lastName",
+      "rate",
+      "areas"
+    ],
+    "description": ""
+  },
+  "the-header": {
+    "attributes": [],
+    "description": ""
+  },
+  "request-item": {
+    "attributes": [
+      "email",
+      "message"
+    ],
+    "description": ""
+  },
+  "base-badge": {
+    "attributes": [
+      "type",
+      "title"
+    ],
+    "description": ""
+  },
+  "base-button": {
+    "attributes": [
+      "mode",
+      "link",
+      "to"
+    ],
+    "description": ""
+  },
+  "base-card": {
+    "attributes": [],
+    "description": ""
+  },
+  "base-dialog": {
+    "attributes": [
+      "show",
+      "title",
+      "fixed"
+    ],
+    "description": ""
+  },
+  "base-spinner": {
+    "attributes": [],
+    "description": ""
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "coach-item/id": {
+    "type": "undefined"
+  },
+  "coach-item/firstName": {
+    "type": "undefined"
+  },
+  "coach-item/lastName": {
+    "type": "undefined"
+  },
+  "coach-item/rate": {
+    "type": "undefined"
+  },
+  "coach-item/areas": {
+    "type": "undefined"
+  },
+  "request-item/email": {
+    "type": "undefined"
+  },
+  "request-item/message": {
+    "type": "undefined"
+  },
+  "base-badge/type": {
+    "type": "undefined"
+  },
+  "base-badge/title": {
+    "type": "undefined"
+  },
+  "base-button/mode": {
+    "type": "string"
+  },
+  "base-button/link": {
+    "type": "boolean"
+  },
+  "base-button/to": {
+    "type": "string"
+  },
+  "base-dialog/show": {
+    "type": "boolean"
+  },
+  "base-dialog/title": {
+    "type": "string"
+  },
+  "base-dialog/fixed": {
+    "type": "boolean"
+  }
+}
